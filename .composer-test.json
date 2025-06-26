@@ -1,0 +1,43 @@
+{
+    "name": "ra/incubator",
+    "type": "phpbb-extension",
+    "description": "Incubate topics on a board until they're ready to hatch.",
+    "version": "0.1.0",
+    "time": "2025-06-23",
+    "keywords": ["phpbb", "extension"],
+    "license": "GPL-2.0-only",
+    "authors": [ { "name": "Chloe" } ],
+    "require": {
+        "php": ">=5.4.0",
+        "composer/installers": "~1.0"
+    },
+    "require-dev": {
+        "phpbb/epv": "dev-master",
+        "squizlabs/php_codesniffer": "*",
+        "phpunit/phpunit": "^10.5",
+        "php-stubs/generator": "^0.8.5",
+        "symfony/event-dispatcher": "^7.3"
+    },
+    "extra": {
+        "display-name": "Topic Incubator Extension",
+        "soft-require": {
+            "phpbb/phpbb": "~3.2"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    },
+  "autoload": {
+    "psr-4": {
+      "ra\\incubator\\": "./"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ra\\incubator\\tests\\": "tests/",
+      "phpbb\\": "tests/stubs/phpbb/"
+    }
+  }
+}

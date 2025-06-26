@@ -1,0 +1,13 @@
+services:
+    ra.incubator.cron.task.migrate_posts:
+        class: ra\incubator\cron\task\migrate_posts
+        arguments:
+            - '@config'
+            - '@dbal.conn'
+    ra.incubator.listener:
+        class: ra\incubator\event\main_listener
+        arguments:
+            - '@controller.helper'
+            - '@template'
+        tags:
+            - { name: event.listener }

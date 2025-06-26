@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+#
+# switch between test and dev composer
+#
+# The tests require an autoload mapping from \phpbb -> tests/stumps/phpbb.
+#
+# However, if a module is a child, autoload-dev is loaded as a regular autoload
+# (for some stupid reason) so that does the mapping too. Defining the a
+# \phpbb mapping in "autoload" breaks the tests (IIRC).
+#
+# So there are two versons of composure:
+#
+# - test-composer.json: includes the autoload mapping and is used when running tests
+# - dev-compossers.json: does not have the autoload mapping and is used when running the server
+#
+# This script switches between the two
+
+abort() {
+  printf "\033[31mError\033[0m %s\n" "${*}"
+  exit 1
+}
+
+main() {
+  local type="$1" name
+
+  [[ -n "$type" ]] || abort "Type argument required. (test or dev)"
+  [[ $type =~ ^(test|dev)$ ]] || abort "Invalid argument for type: '$type' (test or dev)"
+
+  ln -sf ".composer-${type}.json" composer.json
+  composer dumpautoload
+}
+
+main ${1:+"$@"}

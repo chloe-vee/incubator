@@ -109,6 +109,10 @@ class main_module
         $this->request = $phpbb_container->get("request");
         $this->template = $phpbb_container->get("template");
         $this->user = $phpbb_container->get("user");
+
+        // set up page
+        $this->page_title = $this->user->lang($this->title_token);
+        $this->user->add_lang("common");
     }
 
     /**
@@ -131,18 +135,22 @@ class main_module
     /**
      * Show the settings page.
      *
+     * @param bool $from_request Fill from from request values if true.
+     *
      * @return null
      */
-    public function show(): void
+    public function show(bool $from_request = false): void
     {
-        // set up page
-        $this->page_title = $this->user->lang($this->title_token);
-        $this->user->add_lang("common");
-
         // current settings
-        $f_id = $this->config["incubator_from_forum"];
-        $t_id = $this->config["incubator_to_forum"];
-        $days = $this->config["incubator_days"];
+        if ($from_request) {
+            $f_id = $this->request->variable("incubator_from_forum", "");
+            $t_id = $this->request->variable("incubator_to_forum", "");
+            $days = $this->request->variable("incubator_days", "");
+        } else {
+            $f_id = $this->config["incubator_from_forum"];
+            $t_id = $this->config["incubator_to_forum"];
+            $days = $this->config["incubator_days"];
+        }
 
         // add a unique security key to the form
         add_form_key($this->form_key_name);
@@ -159,6 +167,44 @@ class main_module
     }
 
     /**
+     * Validate user input.
+     *
+     * @return array
+     */
+    public function validate(): array
+    {
+        $errors = [];
+
+        $f_id = $this->request->variable("incubator_from_forum", "");
+        $t_id = $this->request->variable("incubator_to_forum", "");
+        $days = $this->request->variable("incubator_days", "");
+
+        if (!$f_id) {
+            $errors["incubator_from_forum"] = "Required.";
+        }
+
+        if (!$t_id) {
+            $errors["incubator_to_forum"] = "Required.";
+        }
+
+        if (!$days) {
+            $errors["incubator_days"] = "Required.";
+        }
+
+        if ($days && (!is_numeric($days) || abs((int) $days) != $days)) {
+            $errors["incubator_days"] = "Days must be a whole, positive number.";
+        }
+
+        if ($f_id && $t_id && ($f_id == $t_id)) {
+            $message = "From and to forums cannot be the same.";
+            $errors["incubator_from_forum"] = $message;
+            $errors["incubator_to_forum"] = $message;
+        }
+
+        return $errors;
+    }
+
+    /**
      * Save the submitted data.
      *
      * @return null
@@ -168,6 +214,14 @@ class main_module
         // ensure the submitted key is present and valid
         if (!check_form_key($this->form_key_name)) {
             trigger_error("FORM_INVALID");
+        }
+
+        $errors = $this->validate();
+
+        if ($errors) {
+            $this->template->assign_var("errors", $errors);
+            $this->show(true);
+            return;
         }
 
         // save the config values

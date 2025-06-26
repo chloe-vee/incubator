@@ -1,10 +1,12 @@
-(A) 2025-06-26 @reliability Validate input on form submit.
+x 2025-06-26 2025-06-26 @task @reliability Validate input on form submit.
 (C) 2025-06-26 @ux Validate input in JS.
-(A) 2025-06-26 Finish cron.
+(A) 2025-06-26 @task Finish cron.
 (D) 2025-06-26 @reliability Deal with $user->lang deprecation notice.
 (B) 2025-06-26 @lang Add language tokens for form labels and messages.
-(B) 2025-06-26 @ux Add disable option to config/form.
+(B) 2025-06-26 @task @ux Add disable option to config/form.
 (B) 2025-06-26 @housekeeping Fix codesmell conflicting indentation rules.
-(A) 2025-06-26 @reliability Figure out if/why lang event listener isn't working.
+(A) 2025-06-26 @task @reliability Figure out if/why lang event listener isn't working.
 (C) 2025-06-26 @qa Figure out how to test main_module::main()
 (C) 2025-06-26 @housekeeping Move function stub files to tests/stubs/includes/ (need to change require_stub())
+(C) 2025-06-26 @housekeeping Remove composer.json from git.
+(B) 2025-06-26 @lang Add language tokens for error messages.

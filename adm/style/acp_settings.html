@@ -2,10 +2,20 @@
 
 <h1>{L_SETTINGS}</h1>
 
+{% if errors %}
+    <div class="errorbox">
+        <h3>{L_ERROR}</h3>
+        <p>Woops, looks like there was a problem. <br> Please fix the errors below and try again.</p>
+    </div>
+{% endif %}
+
 <form id="acp_board" method="post" action="{U_ACTION}">
 	<fieldset>
 		<dl>
-			<dt><label for="incubator_from_forum">Migrate posts from forum:</label></dt>
+            <dt>
+                <label for="incubator_from_forum">Migrate posts from forum:</label>
+                <div class="error"> {{ errors.incubator_from_forum }} </div>
+            </dt>
       <dd>
           <select name="incubator_from_forum">
             <option>------</option>
@@ -15,7 +25,10 @@
 		</dl>
 
 		<dl>
-			<dt><label for="incubator_to_forum">To forum:</label></dt>
+            <dt>
+                <label for="incubator_to_forum">To forum:</label>
+                <div class="error"> {{ errors.incubator_to_forum }} </div>
+            </dt>
       <dd>
           <select name="incubator_to_forum">
             <option>------</option>
@@ -25,7 +38,10 @@
 		</dl>
 
 		<dl>
-			<dt><label for="incubator_days">After how many days:</label></dt>
+            <dt>
+                <label for="incubator_days">After how many days:</label>
+                <div class="error"> {{ errors.incubator_days }} </div>
+            </dt>
       <dd>
           <input type="text" name="incubator_days" value="{{ DAYS }}">
       </dd>

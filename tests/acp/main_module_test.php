@@ -124,10 +124,12 @@ final class main_module_test extends TestCase
     }
 
     /**
-     * The ->save() method should set the config values and display a success
-     * message to the user.
+     * GIVEN: User input
+     * WHEN: the ->save() method is called
+     * THEN: the user should be shown a success message
+     * AND: the config values should be saved.
      */
-    public function testSave(): void
+    public function testSaveSuccess(): void
     {
         global $phpbb_container;
 
@@ -136,22 +138,106 @@ final class main_module_test extends TestCase
         $request         = $phpbb_container->get("request");
         $user            = $phpbb_container->get("user");
 
-        $request->expects($this->exactly(3))
-                ->method("variable");
+        $config["incubator_from_forum"] = 2;
+        $config["incubator_to_forum"] = 3;
+        $config["incubator_days"] = 5;
+
+        $input = [
+            "incubator_from_forum" => "4",
+            "incubator_to_forum" => "5",
+            "incubator_days" => "10",
+        ];
+
+        $request->expects($this->exactly(6))
+                ->method("variable")
+                ->willReturnCallback(
+                    function ($name, $default) use ($input) {
+                        return $input[$name];
+                    }
+                );
+
+        $user->expects($this->exactly(2))
+             ->method("lang")
+             ->with(
+                 $this->logicalOr(
+                     $this->equalTo("ACP_INCUBATOR_SETTINGS"),
+                     $this->equalTo("ACP_INCUBATOR_SUCCESS"),
+                 ),
+             );
+
+        $module = new main_module();
+        $module->save();
+
+        $this->assertSame($config["incubator_from_forum"], "4");
+        $this->assertSame($config["incubator_to_forum"], "5");
+        $this->assertSame($config["incubator_days"], "10");
+    }
+
+    /**
+     * GIVEN: Invalid user input
+     * WHEN: the ->save() method is called
+     * THEN: the user should be shown the settings page again
+     * AND: the config values should not be saved.
+     */
+    public function testSaveFail(): void
+    {
+        global $phpbb_container;
+
+        $phpbb_container = $this->container();
+        $config          = $phpbb_container->get("config");
+        $request         = $phpbb_container->get("request");
+        $user            = $phpbb_container->get("user");
+
+        $config["incubator_from_forum"] = 2;
+        $config["incubator_to_forum"] = 3;
+        $config["incubator_days"] = 5;
+
+        $request->expects($this->exactly(6))
+                ->method("variable")
+                ->willReturn("");
 
         $user->expects($this->once())
              ->method("lang")
-             ->with("ACP_INCUBATOR_SUCCESS")
-             ->willReturn("Success!");
+             ->with("ACP_INCUBATOR_SETTINGS");
 
         $module = new main_module();
         $module->save();
 
         $this->assertInstanceOf('\ra\incubator\acp\main_module', $module);
+        $this->assertSame($config["incubator_from_forum"], 2);
+        $this->assertSame($config["incubator_to_forum"], 3);
+        $this->assertSame($config["incubator_days"], 5);
     }
 
     /**
-     * The ->set_config() method should save the config values.
+     * The ->validate() function should validate input.
+     *
+     * @dataProvider validateTestCases
+     */
+     #[CoversFunction('main_module::validate')]
+    public function testValidate($input, $expected): void
+    {
+        global $phpbb_container;
+
+        $phpbb_container = $this->container();
+        $request         = $phpbb_container->get("request");
+
+        $request->expects($this->exactly(3))
+                ->method("variable")
+                ->willReturnCallback(
+                    function ($name, $default) use ($input) {
+                        return $input[$name];
+                    }
+                );
+
+        $module = new main_module();
+        $errors = $module->validate();
+
+        $this->assertEquals($expected, $errors);
+    }
+
+    /**
+     * The ->set_config() method should save a config value.
      */
     public function testSetConfig(): void
     {
@@ -173,5 +259,85 @@ final class main_module_test extends TestCase
         $module->set_config("abc");
 
         $this->assertSame("xxx", $config["abc"]);
+    }
+
+    /**
+     * Provide test cases for testValidate().
+     */
+    public static function validateTestCases()
+    {
+        return [
+            "valid input" => [
+                [
+                    "incubator_from_forum" => "1",
+                    "incubator_to_forum" => "2",
+                    "incubator_days" => "5",
+                ],
+                [],
+            ],
+            "surrounding whitespace" => [
+                [
+                    "incubator_from_forum" => "1",
+                    "incubator_to_forum" => "2",
+                    "incubator_days" => " 5 ",
+                ],
+                [],
+            ],
+            "same from and to forums" => [
+                [
+                    "incubator_from_forum" => "1",
+                    "incubator_to_forum" => "1",
+                    "incubator_days" => "5",
+                ],
+                [
+                    "incubator_from_forum" =>
+                        "From and to forums cannot be the same.",
+                    "incubator_to_forum" =>
+                        "From and to forums cannot be the same.",
+                ],
+            ],
+            "days not a number" => [
+                [
+                    "incubator_from_forum" => "1",
+                    "incubator_to_forum" => "2",
+                    "incubator_days" => "five",
+                ],
+                [
+                    "incubator_days" => "Days must be a whole, positive number.",
+                ],
+            ],
+            "days not an int" => [
+                [
+                    "incubator_from_forum" => "1",
+                    "incubator_to_forum" => "2",
+                    "incubator_days" => "5.2",
+                ],
+                [
+                    "incubator_days" => "Days must be a whole, positive number.",
+                ],
+            ],
+            "days is negative" => [
+                [
+                    "incubator_from_forum" => "1",
+                    "incubator_to_forum" => "2",
+                    "incubator_days" => "-10",
+                ],
+                [
+                    "incubator_days" => "Days must be a whole, positive number.",
+                ],
+            ],
+            "empty input" => [
+                [
+                    "incubator_from_forum" => "",
+                    "incubator_to_forum" => "",
+                    "incubator_days" => "",
+                ],
+                [
+                    "incubator_from_forum" => "Required.",
+                    "incubator_to_forum" => "Required.",
+                    "incubator_days" => "Required.",
+                ],
+            ],
+        ];
     }
 }

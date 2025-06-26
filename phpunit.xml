@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
-  bootstrap="tests/bootstrap.php"
-  colors="true"
-  stopOnFailure="true"
-  cacheDirectory=".phpunit.cache"
-  executionOrder="depends,defects"
-  beStrictAboutOutputDuringTests="true"
-  displayDetailsOnPhpunitDeprecations="false"
-  displayDetailsOnTestsThatTriggerDeprecations="true"
-  displayDetailsOnTestsThatTriggerWarnings="true"
-  >
-  <testsuites>
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+    bootstrap="tests/bootstrap.php"
+    colors="true"
+    stopOnFailure="true"
+    cacheDirectory=".phpunit.cache"
+    executionOrder="depends,defects"
+    beStrictAboutOutputDuringTests="true"
+    displayDetailsOnPhpunitDeprecations="false"
+    displayDetailsOnTestsThatTriggerDeprecations="true"
+    displayDetailsOnTestsThatTriggerWarnings="true"
+    displayDetailsOnAllIssues="true"
+    testdox="true"
+>
+
+<testsuites>
     <testsuite name="default">
-		<directory suffix="_test.php">./tests</directory>
+        <directory suffix="_test.php">./tests</directory>
     </testsuite>
-  </testsuites>
+</testsuites>
+
 </phpunit>

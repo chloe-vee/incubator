@@ -377,6 +377,7 @@ function add_form_key($form_name, $template_variable_suffix = '')
  */
 function check_form_key($form_name, $timespan = \false)
 {
+    return true;
 }
 // Message/Login boxes
 /**

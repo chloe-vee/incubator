@@ -2,8 +2,10 @@
 <ruleset name="CustomRules">
     <description>PHP CodeSniffer Ruleset.</description>
 
-    <file>../src</file>
+    <file>.</file>
     <file>../tests</file>
+
+    <exclude-pattern>../tests/stubs</exclude-pattern>
 
     <!-- Show progress of the run -->
     <arg value= "p"/>

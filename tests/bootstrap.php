@@ -17,6 +17,3 @@ error_reporting(E_ALL & ~E_DEPRECATED);
 const TEST_ROOT = __DIR__;
 
 require_once TEST_ROOT . DIRECTORY_SEPARATOR . "helpers.php";
-
-define("TOPICS_TABLE", "phpbb_topics");
-define("TABLE_PREFIX", "phpbb_");

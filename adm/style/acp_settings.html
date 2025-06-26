@@ -5,9 +5,9 @@
 <form id="acp_board" method="post" action="{U_ACTION}">
 	<fieldset>
 		<dl>
-			<dt><label for="incubator_from_id">Migrate posts from forum:</label></dt>
+			<dt><label for="incubator_from_forum">Migrate posts from forum:</label></dt>
       <dd>
-          <select>
+          <select name="incubator_from_forum">
             <option>------</option>
             {{ F_OPTIONS }}
           </select>
@@ -15,9 +15,9 @@
 		</dl>
 
 		<dl>
-			<dt><label for="incubator_to_id">To forum:</label></dt>
+			<dt><label for="incubator_to_forum">To forum:</label></dt>
       <dd>
-          <select>
+          <select name="incubator_to_forum">
             <option>------</option>
             {{ T_OPTIONS }}
           </select>
@@ -27,7 +27,7 @@
 		<dl>
 			<dt><label for="incubator_days">After how many days:</label></dt>
       <dd>
-        <input type="text" name="incubator_days" value="{DAYS}">
+          <input type="text" name="incubator_days" value="{{ DAYS }}">
       </dd>
 		</dl>
 

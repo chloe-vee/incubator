@@ -59,6 +59,7 @@
 
     <rule ref="PEAR.Commenting.FunctionComment.MissingReturn">
       <exclude-pattern>../tests/*</exclude-pattern>
+      <exclude-pattern>../migrations/*</exclude-pattern>
     </rule>
 
     <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">

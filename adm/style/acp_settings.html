@@ -1,46 +1,42 @@
 {% include "overall_header.html" %}
 
-<h1>{{ lang("SETTINGS") }}</h1>
+<h1>{L_SETTINGS}</h1>
 
-<form id="acp_incubator" method="post" action="{{ U_ACTION }}">
-	<fieldset class="tabulated">
-		<table>
-			<thead>
-				<tr>
-					<th>From Forum</th>
-					<th>To Forum</th>
-					<th>Days</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for row in loops.rows %}
-				<tr>
-					<td>
-						<select>
-							{{ row.F_OPTIONS }}
-						</select>
-					</td>
-					<td>
-						<select>
-							{{ row.T_OPTIONS }}
-						</select>
-					</td>
-					<td><input type="text" value="{row.DAYS}"></td>
-					<td>
-						<a href="{row.U_DELETE}" data-ajax="row_delete">{ICON_DELETE}</a>
-					</td>
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>
+<form id="acp_board" method="post" action="{U_ACTION}">
+	<fieldset>
+		<dl>
+			<dt><label for="incubator_from_id">Migrate posts from forum:</label></dt>
+      <dd>
+          <select>
+            <option>------</option>
+            {{ F_OPTIONS }}
+          </select>
+      </dd>
+		</dl>
+
+		<dl>
+			<dt><label for="incubator_to_id">To forum:</label></dt>
+      <dd>
+          <select>
+            <option>------</option>
+            {{ T_OPTIONS }}
+          </select>
+      </dd>
+		</dl>
+
+		<dl>
+			<dt><label for="incubator_days">After how many days:</label></dt>
+      <dd>
+        <input type="text" name="incubator_days" value="{DAYS}">
+      </dd>
+		</dl>
 
 		<p class="submit-buttons">
-			<input class="button1" type="submit" id="submit" name="submit" value="{{ lang('SUBMIT') }}" />
+			<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+			<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
 		</p>
 
-		<!-- form key security check -->
-		{{ S_FORM_TOKEN }}
+		{S_FORM_TOKEN}
 	</fieldset>
 </form>
 

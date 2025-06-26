@@ -35,8 +35,8 @@ final class helpers_test extends TestCase
      */
     public function test_fixture_sql(): void
     {
-        $sql = fixture_sql("data-ra");
-        $this->assertStringContainsString("INSERT INTO phpbb_ra_incubator", $sql);
+        $sql = fixture_sql("data-topics");
+        $this->assertStringContainsString("INSERT INTO phpbb_topics", $sql);
     }
 
     /**

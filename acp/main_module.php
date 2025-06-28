@@ -110,7 +110,7 @@ class main_module
 
         // set up page
         $this->page_title = $this->user->lang($this->title_token);
-        $this->user->add_lang("common");
+        $this->user->add_lang_ext("ra/incubator", "common");
     }
 
     /**

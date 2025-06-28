@@ -1,5 +1,4 @@
 (C) 2025-06-26 @ux Validate input in JS.
-(D) 2025-06-26 @reliability apc/main_module: Deal with $user->lang deprecation notice.
 (B) 2025-06-26 @task @lang Add language tokens for form labels and messages.
 (B) 2025-06-26 @task @ux Add disable option to config/form.
 (B) 2025-06-26 @housekeeping Fix codesmell conflicting indentation rules.

@@ -29,15 +29,15 @@
             "composer/installers": true
         }
     },
-  "autoload": {
-    "psr-4": {
-      "ra\\incubator\\": "./"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "ra\\incubator\\tests\\": "tests/",
-      "phpbb\\": "tests/stubs/phpbb/"
-    }
-  }
+   "autoload": {
+     "psr-4": {
+       "ra\\incubator\\": "./"
+     }
+   },
+   "autoload-dev": {
+     "psr-4": {
+       "ra\\incubator\\tests\\": "tests/",
+       "phpbb\\": "tests/stubs/phpbb/"
+     }
+   }
 }

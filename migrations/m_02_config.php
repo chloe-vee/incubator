@@ -32,7 +32,7 @@ class m_02_config extends \phpbb\db\migration\migration
      */
     public function effectively_installed(): bool
     {
-        return isset($this->config["incubator_from_forum"]);
+        return isset($this->config["relocate_ripe_topics_gc"]);
     }
 
     /**
@@ -50,6 +50,10 @@ class m_02_config extends \phpbb\db\migration\migration
             ["config.add", ["incubator_from_forum", ""]],
             ["config.add", ["incubator_to_forum", ""]],
             ["config.add", ["incubator_days", ""]],
+            ["config.add", ["relocate_ripe_topics_last_gc", 0]],
+
+            // run the cron every day
+            ["config.add", ["relocate_ripe_topics_gc", 86400]],
         ];
     }
 }

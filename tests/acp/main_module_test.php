@@ -2,9 +2,9 @@
 
 namespace ra\incubator\tests\acp;
 
-require_stub("admin.php");
-require_stub("functions.php");
-require_stub("functions_acp.php");
+require_stub("phpbb", "admin.php");
+require_stub("includes", "functions.php");
+require_stub("includes", "functions_acp.php");
 
 use phpbb\config\config;
 use phpbb\container;
@@ -212,7 +212,7 @@ final class main_module_test extends TestCase
     /**
      * The ->validate() function should validate input.
      *
-     * @dataProvider validateTestCases
+     * @dataProvider dataValidate
      */
      #[CoversFunction('main_module::validate')]
     public function testValidate($input, $expected): void
@@ -264,7 +264,7 @@ final class main_module_test extends TestCase
     /**
      * Provide test cases for testValidate().
      */
-    public static function validateTestCases()
+    public static function dataValidate()
     {
         return [
             "valid input" => [

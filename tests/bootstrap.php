@@ -18,5 +18,7 @@ const TEST_ROOT = __DIR__;
 
 require_once TEST_ROOT . DIRECTORY_SEPARATOR . "helpers.php";
 
+define("STUBS_ROOT", joinpaths(TEST_ROOT, "stubs"));
 define("TOPICS_TABLE", "phpbb_topics");
 define("TABLE_PREFIX", "phpbb_");
+define("A_DAY", 86400);

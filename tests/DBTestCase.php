@@ -5,7 +5,7 @@ namespace ra\incubator\tests;
 use PHPUnit\Framework\TestCase;
 
 /**
- * A teest case.
+ * A test case.
  */
 abstract class DBTestCase extends \PHPUnit\Framework\TestCase
 {
@@ -28,16 +28,51 @@ abstract class DBTestCase extends \PHPUnit\Framework\TestCase
             ->willReturnCallback(
                 function (string $sql) {
                     $statement = $this->db->query($sql);
-                    $rows = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
                     $result = $this->createMock('mysqli_result');
-                    $result->method("fetch_all")->willReturn($rows);
+
+                    $result->method("fetch_all")->willReturnCallback(
+                        function() use ($statement) {
+                            return $statement->fetchAll(\PDO::FETCH_ASSOC);
+                        }
+                    );
+
+                    $result->method("fetch_column")->willReturnCallback(
+                        function() use ($statement) {
+                            return $statement->fetchColumn();
+                        }
+                    );
 
                     return $result;
                 }
             );
 
         $this->initDB();
+    }
+
+    /**
+     * All the values from a column.
+     *
+     * @return array
+     */
+    public function fetchColumnValues(\PDOStatement $statement): array
+    {
+        $values = [];
+        while ($v = $statement->fetchColumn(0)) {
+            $values[] = $v;
+        }
+
+        return $values;
+    }
+
+    /**
+     * A string of $count comma-spearated "?" placeholders.
+     *
+     * @return string
+     */
+    public function placeholders(int $count): string
+    {
+        return join(", ", array_fill(0, $count, "?"));
     }
 
     /**

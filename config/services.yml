@@ -1,13 +1,19 @@
 services:
-    ra.incubator.cron.task.migrate_posts:
-        class: ra\incubator\cron\task\migrate_posts
-        arguments:
-            - '@config'
-            - '@dbal.conn'
-    ra.incubator.listener:
-        class: ra\incubator\event\main_listener
-        arguments:
-            - '@controller.helper'
-            - '@template'
-        tags:
-            - { name: event.listener }
+  ra.incubator.listener:
+    class: ra\incubator\event\main_listener
+    arguments:
+      - '@controller.helper'
+      - '@template'
+    tags:
+      - { name: event.listener }
+
+  ra.incubator.cron.task.relocate_ripe_topics:
+    class: ra\incubator\cron\task\relocate_ripe_topics
+    arguments:
+      - '@config'
+      - '@dbal.conn'
+      - '%core.root_path%'
+    calls:
+      - [set_name, [ra.incubator.cron.task.relocate_ripe_topics]]
+    tags:
+      - { name: cron.task }

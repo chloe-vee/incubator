@@ -49,7 +49,7 @@ function fixture_sql(string $name)
  */
 function require_stub(...$paths): void
 {
-    include_once joinpaths(TEST_ROOT, "stubs", "phpbb", ...$paths);
+    include_once joinpaths(STUBS_ROOT, ...$paths);
 }
 
 /**

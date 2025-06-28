@@ -13,8 +13,6 @@
 
 namespace ra\incubator\acp;
 
-use phpbb\json_response;
-
 /**
  * Main module class.
  */
@@ -231,7 +229,7 @@ class main_module
 
         // TODO: The user->lang() method is deprecated
         // display a success message to the user
-        // (not an error, not sure why the function is called that)
+        // (not an error, not sure why it is called that)
         trigger_error(
             $this->user->lang("ACP_INCUBATOR_SUCCESS")
             . adm_back_link($this->u_action)

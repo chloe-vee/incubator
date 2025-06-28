@@ -19,7 +19,7 @@ final class helpers_test extends TestCase
      * The keys_exist() function should return true if all strings in $keys
      * exist as keys in $dict.
      *
-     * @dataProvider keys_exist_provider
+     * @dataProvider data_keys_exist
      */
     public function test_keys_exist($keys, $expected): void
     {
@@ -52,7 +52,7 @@ final class helpers_test extends TestCase
     /**
      * Provide test cases for test_keys_exist().
      */
-    public static function keys_exist_provider()
+    public static function data_keys_exist()
     {
         return [
             "all" => [["a", "b", "c"], true],

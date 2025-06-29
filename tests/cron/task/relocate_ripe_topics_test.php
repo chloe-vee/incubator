@@ -2,6 +2,8 @@
 
 namespace ra\incubator\tests\cron\task;
 
+require_stub("includes", "constants.php");
+
 use phpbb\config\config;
 use PHPUnit\Framework\TestCase;
 use ra\incubator\cron\task\relocate_ripe_topics;
@@ -29,7 +31,13 @@ class relocate_ripe_topics_test extends DBTestCase
      */
     protected function topic_ids($forum_id): array {
         $stmt = $this->db->query(
-            "SELECT topic_id FROM phpbb_topics WHERE forum_id = {$this->f_id}",
+            "
+                SELECT topic_id
+                FROM phpbb_topics
+                WHERE
+                    forum_id = {$this->f_id}
+                    AND topic_type = " . POST_NORMAL . "
+            ",
         );
         return $this->fetchColumnValues($stmt);
     }

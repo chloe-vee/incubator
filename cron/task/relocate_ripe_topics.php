@@ -84,10 +84,12 @@ class relocate_ripe_topics extends \phpbb\cron\task\base
             WHERE
                 forum_id = $f_id
                 AND topic_time < $date
+                AND topic_type = " . POST_NORMAL . "
         ";
 
         $result = $this->db->sql_query($sql);
         $topics = [];
+
         while ($id = $result->fetch_column()) {
             $topics[] = $id;
         }

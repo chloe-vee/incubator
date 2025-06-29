@@ -141,14 +141,16 @@ final class main_module_test extends TestCase
         $config["incubator_from_forum"] = 2;
         $config["incubator_to_forum"] = 3;
         $config["incubator_days"] = 5;
+        $config["relocate_ripe_topics_gc"] = 120;
 
         $input = [
             "incubator_from_forum" => "4",
             "incubator_to_forum" => "5",
             "incubator_days" => "10",
+            "relocate_ripe_topics_gc" => "60",
         ];
 
-        $request->expects($this->exactly(6))
+        $request->expects($this->exactly(8))
                 ->method("variable")
                 ->willReturnCallback(
                     function ($name, $default) use ($input) {
@@ -171,6 +173,7 @@ final class main_module_test extends TestCase
         $this->assertSame($config["incubator_from_forum"], "4");
         $this->assertSame($config["incubator_to_forum"], "5");
         $this->assertSame($config["incubator_days"], "10");
+        $this->assertSame($config["relocate_ripe_topics_gc"], "60");
     }
 
     /**
@@ -191,8 +194,9 @@ final class main_module_test extends TestCase
         $config["incubator_from_forum"] = 2;
         $config["incubator_to_forum"] = 3;
         $config["incubator_days"] = 5;
+        $config["relocate_ripe_topics_gc"] = 60;
 
-        $request->expects($this->exactly(6))
+        $request->expects($this->exactly(8))
                 ->method("variable")
                 ->willReturn("");
 
@@ -207,6 +211,7 @@ final class main_module_test extends TestCase
         $this->assertSame($config["incubator_from_forum"], 2);
         $this->assertSame($config["incubator_to_forum"], 3);
         $this->assertSame($config["incubator_days"], 5);
+        $this->assertSame($config["relocate_ripe_topics_gc"], 60);
     }
 
     /**
@@ -222,7 +227,7 @@ final class main_module_test extends TestCase
         $phpbb_container = $this->container();
         $request         = $phpbb_container->get("request");
 
-        $request->expects($this->exactly(3))
+        $request->expects($this->exactly(4))
                 ->method("variable")
                 ->willReturnCallback(
                     function ($name, $default) use ($input) {
@@ -272,6 +277,7 @@ final class main_module_test extends TestCase
                     "incubator_from_forum" => "1",
                     "incubator_to_forum" => "2",
                     "incubator_days" => "5",
+                    "relocate_ripe_topics_gc" => "60",
                 ],
                 [],
             ],
@@ -280,6 +286,7 @@ final class main_module_test extends TestCase
                     "incubator_from_forum" => "1",
                     "incubator_to_forum" => "2",
                     "incubator_days" => " 5 ",
+                    "relocate_ripe_topics_gc" => " 60 ",
                 ],
                 [],
             ],
@@ -288,6 +295,7 @@ final class main_module_test extends TestCase
                     "incubator_from_forum" => "1",
                     "incubator_to_forum" => "1",
                     "incubator_days" => "5",
+                    "relocate_ripe_topics_gc" => "60",
                 ],
                 [
                     "incubator_from_forum" =>
@@ -296,14 +304,16 @@ final class main_module_test extends TestCase
                         "From and to forums cannot be the same.",
                 ],
             ],
-            "days not a number" => [
+            "not a number" => [
                 [
                     "incubator_from_forum" => "1",
                     "incubator_to_forum" => "2",
                     "incubator_days" => "five",
+                    "relocate_ripe_topics_gc" => "sixty",
                 ],
                 [
                     "incubator_days" => "Days must be a whole, positive number.",
+                    "relocate_ripe_topics_gc" => "Cron frequency must be a whole, positive number.",
                 ],
             ],
             "days not an int" => [
@@ -311,9 +321,11 @@ final class main_module_test extends TestCase
                     "incubator_from_forum" => "1",
                     "incubator_to_forum" => "2",
                     "incubator_days" => "5.2",
+                    "relocate_ripe_topics_gc" => "60.5",
                 ],
                 [
                     "incubator_days" => "Days must be a whole, positive number.",
+                    "relocate_ripe_topics_gc" => "Cron frequency must be a whole, positive number.",
                 ],
             ],
             "days is negative" => [
@@ -321,9 +333,11 @@ final class main_module_test extends TestCase
                     "incubator_from_forum" => "1",
                     "incubator_to_forum" => "2",
                     "incubator_days" => "-10",
+                    "relocate_ripe_topics_gc" => "-60",
                 ],
                 [
                     "incubator_days" => "Days must be a whole, positive number.",
+                    "relocate_ripe_topics_gc" => "Cron frequency must be a whole, positive number.",
                 ],
             ],
             "empty input" => [
@@ -331,11 +345,13 @@ final class main_module_test extends TestCase
                     "incubator_from_forum" => "",
                     "incubator_to_forum" => "",
                     "incubator_days" => "",
+                    "relocate_ripe_topics_gc" => "",
                 ],
                 [
                     "incubator_from_forum" => "Required.",
                     "incubator_to_forum" => "Required.",
                     "incubator_days" => "Required.",
+                    "relocate_ripe_topics_gc" => "Required.",
                 ],
             ],
         ];

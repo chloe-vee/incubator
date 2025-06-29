@@ -4,3 +4,4 @@ x 2025-06-28 2025-06-26 @task Rename migrate (in cron) to something else.
 x 2025-06-28 2025-06-26 @housekeeping Move function stub files to tests/stubs/includes/ (need to change require_stub())
 x 2025-06-28 2025-06-26 @reliability apc/main_module: Deal with $user->lang deprecation notice.
 x 2025-06-28 2025-06-28 @task Don't move stickies, announcements, or global topic types.
+x 2025-06-28 2025-06-28 @task @ux Add config relocate_ripe_topics_gc (frequency) to ACP module.

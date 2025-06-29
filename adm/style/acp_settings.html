@@ -11,41 +11,51 @@
 
 <form id="acp_board" method="post" action="{U_ACTION}">
 	<fieldset>
-		<dl>
+        <dl>
             <dt>
                 <label for="incubator_from_forum">Migrate posts from forum:</label>
                 <div class="error"> {{ errors.incubator_from_forum }} </div>
             </dt>
-      <dd>
-          <select name="incubator_from_forum">
-            <option>------</option>
-            {{ F_OPTIONS }}
-          </select>
-      </dd>
-		</dl>
+            <dd>
+                <select name="incubator_from_forum">
+                    <option>------</option>
+                    {{ F_OPTIONS }}
+                </select>
+            </dd>
+        </dl>
 
-		<dl>
+        <dl>
             <dt>
                 <label for="incubator_to_forum">To forum:</label>
                 <div class="error"> {{ errors.incubator_to_forum }} </div>
             </dt>
-      <dd>
-          <select name="incubator_to_forum">
-            <option>------</option>
-            {{ T_OPTIONS }}
-          </select>
-      </dd>
-		</dl>
+            <dd>
+                <select name="incubator_to_forum">
+                    <option>------</option>
+                    {{ T_OPTIONS }}
+                </select>
+            </dd>
+        </dl>
 
-		<dl>
+        <dl>
             <dt>
                 <label for="incubator_days">After how many days:</label>
                 <div class="error"> {{ errors.incubator_days }} </div>
             </dt>
-      <dd>
-          <input type="text" name="incubator_days" value="{{ DAYS }}">
-      </dd>
-		</dl>
+            <dd>
+                <input type="text" name="incubator_days" value="{{ DAYS }}">
+            </dd>
+        </dl>
+
+        <dl>
+            <dt>
+                <label for="relocate_ripe_topics_gc">How frequently (in seconds):</label>
+                <div class="error"> {{ errors.relocate_ripe_topics_gc }} </div>
+            </dt>
+            <dd>
+                <input type="text" name="relocate_ripe_topics_gc" value="{{ FREQ }}">
+            </dd>
+        </dl>
 
 		<p class="submit-buttons">
 			<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;

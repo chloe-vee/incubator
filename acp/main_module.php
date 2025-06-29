@@ -144,10 +144,12 @@ class main_module
             $f_id = $this->request->variable("incubator_from_forum", "");
             $t_id = $this->request->variable("incubator_to_forum", "");
             $days = $this->request->variable("incubator_days", "");
+            $freq = $this->request->variable("relocate_ripe_topics_gc", "");
         } else {
             $f_id = $this->config["incubator_from_forum"];
             $t_id = $this->config["incubator_to_forum"];
             $days = $this->config["incubator_days"];
+            $freq = $this->config["relocate_ripe_topics_gc"];
         }
 
         // add a unique security key to the form
@@ -157,9 +159,10 @@ class main_module
         $this->template->assign_vars(
             [
                 "U_ACTION" => $this->u_action,
-                "DAYS" => $days,
                 "F_OPTIONS" => make_forum_select($f_id, false, false, true),
                 "T_OPTIONS" => make_forum_select($t_id, false, false, true),
+                "DAYS" => $days,
+                "FREQ" => $freq,
             ],
         );
     }
@@ -176,6 +179,7 @@ class main_module
         $f_id = $this->request->variable("incubator_from_forum", "");
         $t_id = $this->request->variable("incubator_to_forum", "");
         $days = $this->request->variable("incubator_days", "");
+        $freq = $this->request->variable("relocate_ripe_topics_gc", "");
 
         if (!$f_id) {
             $errors["incubator_from_forum"] = "Required.";
@@ -189,8 +193,17 @@ class main_module
             $errors["incubator_days"] = "Required.";
         }
 
+        if (!$freq) {
+            $errors["relocate_ripe_topics_gc"] = "Required.";
+        }
+
         if ($days && (!is_numeric($days) || abs((int) $days) != $days)) {
             $errors["incubator_days"] = "Days must be a whole, positive number.";
+        }
+
+        if ($freq && (!is_numeric($freq) || abs((int) $freq) != $freq)) {
+            $errors["relocate_ripe_topics_gc"]
+                = "Cron frequency must be a whole, positive number.";
         }
 
         if ($f_id && $t_id && ($f_id == $t_id)) {
@@ -226,8 +239,8 @@ class main_module
         $this->set_config("incubator_from_forum");
         $this->set_config("incubator_to_forum");
         $this->set_config("incubator_days", 0);
+        $this->set_config("relocate_ripe_topics_gc", 0);
 
-        // TODO: The user->lang() method is deprecated
         // display a success message to the user
         // (not an error, not sure why it is called that)
         trigger_error(

@@ -8,4 +8,3 @@
 (B) 2025-06-26 @task @lang Add language tokens for error messages.
 (A) 2025-06-28 @qa Figure out how to add logging (for debug)
 (A) 2025-06-28 @reliability Look into using the phpbb_log
-x 2025-06-28 2025-06-28 @task @ux Add config relocate_ripe_topics_gc (frequency) to ACP module.

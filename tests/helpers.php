@@ -12,6 +12,16 @@ function joinpaths(): string
     return join(DIRECTORY_SEPARATOR, func_get_args());
 }
 
+function array_all(array $array, callable $callback): bool {
+    foreach ($array as $key => $value) {
+        if (!$callback($value, $key)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
 /**
  * Return true if $arr has all of the keys in $keys.
  *

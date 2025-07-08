@@ -29,7 +29,8 @@ class relocate_ripe_topics_test extends DBTestCase
      *
      * @return array
      */
-    protected function topic_ids($forum_id): array {
+    protected function topic_ids($forum_id): array
+    {
         $stmt = $this->db->query(
             "
                 SELECT topic_id
@@ -70,11 +71,11 @@ class relocate_ripe_topics_test extends DBTestCase
 
         // create a task object with the move_topics() method mocked
         $task = $this->getMockBuilder(relocate_ripe_topics::class)
-                     ->setConstructorArgs(
-                         [new config([]), $this->mockDB, STUBS_ROOT],
-                     )
-                     ->onlyMethods(["move_topics"])
-                     ->getMock();
+            ->setConstructorArgs(
+                [new config([]), $this->mockDB, STUBS_ROOT],
+            )
+            ->onlyMethods(["move_topics"])
+            ->getMock();
 
         $task->expects($spy = $this->once())
             ->method("move_topics")
@@ -106,9 +107,9 @@ class relocate_ripe_topics_test extends DBTestCase
 
         // create a task object with the ->move_topics() method mocked
         $task = $this->getMockBuilder(relocate_ripe_topics::class)
-                     ->setConstructorArgs([$config, $this->mockDB, STUBS_ROOT])
-                     ->onlyMethods(["move_topics"])
-                     ->getMock();
+            ->setConstructorArgs([$config, $this->mockDB, STUBS_ROOT])
+            ->onlyMethods(["move_topics"])
+            ->getMock();
 
         $task->expects($spy = $this->once())
             ->method("move_topics")

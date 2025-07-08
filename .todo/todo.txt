@@ -8,3 +8,4 @@
 (B) 2025-06-26 @task @lang Add language tokens for error messages.
 (A) 2025-06-28 @qa Figure out how to add logging (for debug)
 (A) 2025-06-28 @reliability Look into using the phpbb_log
+(A) 2025-06-28 @bug Try to install on a new install of phpbb 3.3.15 with the ext.zip extensions installed to reproduce the error on install reported.

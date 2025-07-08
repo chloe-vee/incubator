@@ -184,7 +184,8 @@ class user
      * @param ?\DateTimeZone $timezone Time zone of the time.
      * @return \phpbb\datetime Date time object linked to the current users locale
      */
-    public function create_datetime(string $time = 'now', \DateTimeZone|null $timezone = null)
+    // public function create_datetime(string $time = 'now', \DateTimeZone|null $timezone = null)
+    public function create_datetime(string $time = 'now', \DateTimeZone $timezone = null)
     {
     }
     /**
@@ -195,7 +196,8 @@ class user
      * @param	?\DateTimeZone	$timezone	Timezone of the date/time, falls back to timezone of current user
      * @return	string|false			Returns the unix timestamp or false if date is invalid
      */
-    public function get_timestamp_from_format($format, $time, \DateTimeZone|null $timezone = null)
+    // public function get_timestamp_from_format($format, $time, \DateTimeZone|null $timezone = null)
+    public function get_timestamp_from_format($format, $time, \DateTimeZone $timezone = null)
     {
     }
     /**

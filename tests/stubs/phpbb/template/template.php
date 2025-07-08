@@ -86,7 +86,8 @@ interface template
      * @param mixed $varval Value to assign to variable
      * @return \phpbb\template\template $this
      */
-    public function assign_var(string $varname, mixed $varval);
+    // public function assign_var(string $varname, mixed $varval);
+    public function assign_var(string $varname, $varval);
     /**
      * Append text to the string value stored in a key.
      *

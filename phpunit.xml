@@ -4,13 +4,8 @@
     bootstrap="tests/bootstrap.php"
     colors="true"
     stopOnFailure="true"
-    cacheDirectory=".phpunit.cache"
     executionOrder="depends,defects"
     beStrictAboutOutputDuringTests="true"
-    displayDetailsOnPhpunitDeprecations="false"
-    displayDetailsOnTestsThatTriggerDeprecations="true"
-    displayDetailsOnTestsThatTriggerWarnings="true"
-    displayDetailsOnAllIssues="true"
     testdox="true"
 >
 

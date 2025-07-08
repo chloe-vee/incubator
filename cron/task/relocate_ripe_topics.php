@@ -42,7 +42,7 @@ class relocate_ripe_topics extends \phpbb\cron\task\base
     public function __construct(
         \phpbb\config\config $config,
         \phpbb\db\driver\driver_interface $db,
-        ?string $root = null,
+        ?string $root = null
     ) {
         $this->config = $config;
         $this->db = $db;
@@ -59,7 +59,6 @@ class relocate_ripe_topics extends \phpbb\cron\task\base
         $f_id = $this->config["incubator_from_forum"];
         $t_id = $this->config["incubator_to_forum"];
         $days = $this->config["incubator_days"];
-
         $this->relocate($f_id, $t_id, $days);
 
         $this->config->set("relocate_ripe_topics_last_gc", time());
@@ -90,8 +89,8 @@ class relocate_ripe_topics extends \phpbb\cron\task\base
         $result = $this->db->sql_query($sql);
         $topics = [];
 
-        while ($id = $result->fetch_column()) {
-            $topics[] = $id;
+        while ($row = $this->db->sql_fetchrow($result)) {
+            $topics[] = $row['topic_id'];
         }
 
         $this->db->sql_freeresult($result);

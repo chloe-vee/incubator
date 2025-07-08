@@ -440,5 +440,6 @@ interface driver_interface
      *
      * @return int|string|null Query id in string or integer format
      */
-    public function clean_query_id(mixed $query_id) : int|string|null;
+    // public function clean_query_id(mixed $query_id) : int|string|null;
+    public function clean_query_id($query_id);
 }

@@ -26,7 +26,8 @@ function adm_back_link($u_action)
  *
  * @return array
  */
-function build_select(array $options_ary, bool|int|string $option_default = \false) : array
+// function build_select(array $options_ary, bool|int|string $option_default = \false) : array
+function build_select(array $options_ary, $option_default = \false) : array
 {
 }
 /**
@@ -39,7 +40,8 @@ function build_select(array $options_ary, bool|int|string $option_default = \fal
  *
  * @return array
  */
-function phpbb_build_radio(int|string $value, string $key, array $options) : array
+// function phpbb_build_radio(int|string $value, string $key, array $options) : array
+function phpbb_build_radio(int $value, string $key, array $options) : array
 {
 }
 /**
@@ -53,7 +55,8 @@ function phpbb_build_radio(int|string $value, string $key, array $options) : arr
  *
  * @return array|string
  */
-function phpbb_build_cfg_template(array $tpl_type, string $key, array|object &$new_ary, string $config_key, array $vars) : array|string
+// function phpbb_build_cfg_template(array $tpl_type, string $key, array|object &$new_ary, string $config_key, array $vars) : array|string
+function phpbb_build_cfg_template(array $tpl_type, string $key, array &$new_ary, string $config_key, array $vars) : array
 {
 }
 /**

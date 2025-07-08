@@ -65,7 +65,8 @@ function phpbb_gmgetdate($time = \false)
 *
 * @return array|string                    data array if $string_only is false
 */
-function get_formatted_filesize($value, bool $string_only = \true, array|null $allowed_units = \null)
+// function get_formatted_filesize($value, bool $string_only = \true, array|null $allowed_units = \null)
+function get_formatted_filesize($value, bool $string_only = \true, array $allowed_units = \null)
 {
 }
 /**
@@ -90,7 +91,8 @@ function still_on_time($extra_time = 15)
 * @return mixed				Boolean (true, false) if comparison operator is specified.
 *							Integer (-1, 0, 1) otherwise.
 */
-function phpbb_version_compare(string $version1, string $version2, string|null $operator = \null)
+// function phpbb_version_compare(string $version1, string $version2, string|null $operator = \null)
+function phpbb_version_compare(string $version1, string $version2, string $operator = \null)
 {
 }
 // functions used for building option fields

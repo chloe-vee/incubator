@@ -27,23 +27,14 @@ abstract class DBTestCase extends \PHPUnit\Framework\TestCase
         $this->mockDB->method('sql_query')
             ->willReturnCallback(
                 function (string $sql) {
-                    $statement = $this->db->query($sql);
+                    return $this->db->query($sql);
+                }
+            );
 
-                    $result = $this->createMock('mysqli_result');
-
-                    $result->method("fetch_all")->willReturnCallback(
-                        function() use ($statement) {
-                            return $statement->fetchAll(\PDO::FETCH_ASSOC);
-                        }
-                    );
-
-                    $result->method("fetch_column")->willReturnCallback(
-                        function() use ($statement) {
-                            return $statement->fetchColumn();
-                        }
-                    );
-
-                    return $result;
+        $this->mockDB->method('sql_fetchrow')
+            ->willReturnCallback(
+                function ($statement) {
+                    return $statement->fetch();
                 }
             );
 

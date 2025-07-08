@@ -178,8 +178,8 @@ class main_module
 
         $f_id = $this->request->variable("incubator_from_forum", "");
         $t_id = $this->request->variable("incubator_to_forum", "");
-        $days = $this->request->variable("incubator_days", "");
-        $freq = $this->request->variable("relocate_ripe_topics_gc", "");
+        $days = trim($this->request->variable("incubator_days", ""));
+        $freq = trim($this->request->variable("relocate_ripe_topics_gc", ""));
 
         if (!$f_id) {
             $errors["incubator_from_forum"] = "Required.";

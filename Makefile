@@ -26,7 +26,7 @@ release: build                  ## create a zipfile and update version numbers t
 	@echo "Preparing release for v $(VERSION)"
 	@echo "(Don't forget to edit the CHANGELOG.md)"
 	@mv $(BUILD_DIR)/$(ZIPFILE) $(DIST_DIR)
-	@sed -i'' -Ee "/^\[latest-release\]/ s/ra-incubator.*.zip\s*/ra-incubator.$(VERSION).zip/" README.md
+	@sed -i'' -Ee "/^\[latest-release\]/ s/ra-incubator-*.zip\s*/ra-incubator-$(VERSION).zip/" README.md
 	@sed -i'' -Ee '/^\s*"version":/ s/"[0-9]+\.[0-9]+\.[0-9]+"/"$(VERSION)"/' .composer-test.json
 	@sed -i'' -Ee '/^\s*"version":/ s/"[0-9]+\.[0-9]+\.[0-9]+"/"$(VERSION)"/' .composer-dev.json
 

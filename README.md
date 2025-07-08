@@ -8,7 +8,7 @@ Install
 
 Download the [latest release][latest-release] and unzip in your `ext/` directory.
 
-[latest-release]: https://raw.githubusercontent.com/chloe-vee/incubator/refs/heads/main/releases/ra-incubator.0.1.2.zip
+[latest-release]: https://raw.githubusercontent.com/chloe-vee/incubator/refs/heads/main/releases/ra-incubator-0.1.2.zip
 
 Usage
 -----

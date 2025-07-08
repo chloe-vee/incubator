@@ -2,7 +2,7 @@
     "name": "ra/incubator",
     "type": "phpbb-extension",
     "description": "Incubate topics on a board until they're ready to hatch.",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "time": "2025-06-23",
     "keywords": ["phpbb", "extension"],
     "license": "GPL-2.0-only",
